@@ -42,6 +42,14 @@ const btnLimparFiltros = el("btnLimparFiltros");
 const lista = el("lista");
 const toast = el("toast");
 
+const repEntradas = el("repEntradas");
+const repDespesas = el("repDespesas");
+const repSaldo = el("repSaldo");
+const repCats = el("repCats");
+const btnExportCSV = el("btnExportCSV");
+const btnPrint = el("btnPrint");
+
+
 // ===============================
 // HELPERS
 // ===============================
@@ -198,12 +206,25 @@ async function deleteDespesa(id) {
 // ===============================
 function setKPIs(totalDespesas) {
   const entradas = num(entradasMes.salario) + num(entradasMes.ganho_extra);
+
+  // KPIs do card principal
   kpiEntradas.textContent = brl(entradas);
   kpiDespesas.textContent = brl(totalDespesas);
+
   const saldo = entradas - totalDespesas;
   kpiSaldo.textContent = brl(saldo);
   kpiSaldo.style.color = saldo >= 0 ? "var(--ok)" : "var(--danger)";
+
+  // KPIs do relatório
+  if (repEntradas) repEntradas.textContent = brl(entradas);
+  if (repDespesas) repDespesas.textContent = brl(totalDespesas);
+
+  if (repSaldo) {
+    repSaldo.textContent = brl(saldo);
+    repSaldo.style.color = saldo >= 0 ? "var(--ok)" : "var(--danger)";
+  }
 }
+
 
 function renderRows(rows) {
   if (!rows.length) {
