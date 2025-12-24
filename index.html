@@ -72,6 +72,50 @@
         </div>
       </div>
 
+<!-- RELATÓRIO -->
+<section class="card">
+  <div class="card-title">
+    <h2>Relatório</h2>
+    <span class="chip">resumo + categorias</span>
+  </div>
+
+  <div class="report-grid">
+    <div class="kpi">
+      <span>Total do mês (Entradas)</span>
+      <strong id="repEntradas">R$ 0,00</strong>
+    </div>
+    <div class="kpi">
+      <span>Total do mês (Despesas)</span>
+      <strong id="repDespesas">R$ 0,00</strong>
+    </div>
+    <div class="kpi">
+      <span>Saldo do mês</span>
+      <strong id="repSaldo">R$ 0,00</strong>
+    </div>
+  </div>
+
+  <div class="actions" style="margin-top:12px;">
+    <button id="btnExportCSV" class="btn">Exportar CSV (filtro atual)</button>
+    <button id="btnPrint" class="btn ghost">Imprimir / Salvar PDF</button>
+  </div>
+
+  <hr class="sep" />
+
+  <h3 class="sub">Gastos por categoria (filtro atual)</h3>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th class="right">Total</th>
+        </tr>
+      </thead>
+      <tbody id="repCats"></tbody>
+    </table>
+  </div>
+</section>
+
+      
       <!-- CARD: Nova despesa -->
       <div class="card">
         <div class="card-title">
