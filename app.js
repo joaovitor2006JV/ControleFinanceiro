@@ -386,6 +386,57 @@ btnLimparFiltros.addEventListener("click", async () => {
   showToast("Filtros limpos.");
 });
 
+function renderCategorias(rows){
+  if (!repCats) return;
+
+  const map = new Map();
+  for (const r of rows) {
+    const cat = (r.categoria || "Sem categoria").trim() || "Sem categoria";
+    map.set(cat, (map.get(cat) || 0) + num(r.valor));
+  }
+
+  const items = Array.from(map.entries())
+    .sort((a,b) => b[1] - a[1]);
+
+  if (!items.length) {
+    repCats.innerHTML = `<tr><td colspan="2" style="padding:16px; color:rgba(255,255,255,0.7)">Sem dados no filtro.</td></tr>`;
+    return;
+  }
+
+  repCats.innerHTML = items.map(([cat,total]) => `
+    <tr>
+      <td>${escapeHtml(cat)}</td>
+      <td class="right">${brl(total)}</td>
+    </tr>
+  `).join("");
+}
+
+function downloadCSV(filename, rows){
+  const header = ["data","categoria","descricao","valor"];
+  const lines = [header.join(",")];
+
+  for (const r of rows) {
+    const line = [
+      r.data,
+      `"${String(r.categoria||"").replaceAll('"','""')}"`,
+      `"${String(r.descricao||"").replaceAll('"','""')}"`,
+      String(num(r.valor)).replace(".", ",")
+    ];
+    lines.push(line.join(","));
+  }
+
+  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+
 // ===============================
 // INIT
 // ===============================
