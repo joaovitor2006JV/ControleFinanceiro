@@ -312,10 +312,15 @@ function escapeHtml(s) {
 async function refresh() {
   await loadEntradasMes();
   const rows = await fetchDespesas();
+
   const total = rows.reduce((acc, r) => acc + num(r.valor), 0);
   setKPIs(total);
   renderRows(rows);
+
+  // relatório por categoria (filtro atual)
+  renderCategorias(rows);
 }
+
 
 // ===============================
 // EVENTOS
