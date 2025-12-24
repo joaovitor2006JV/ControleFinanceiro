@@ -1,5 +1,5 @@
 // ===============================
-// CONFIG SUPABASE (preencha aqui)
+// CONFIG SUPABASE preencha aqui
 // ===============================
 const SUPABASE_URL = "COLE_SUA_SUPABASE_URL_AQUI";
 const SUPABASE_ANON_KEY = "COLE_SUA_SUPABASE_ANON_KEY_AQUI";
