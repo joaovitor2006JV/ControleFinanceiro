@@ -380,6 +380,22 @@ btnAplicarFiltros.addEventListener("click", async () => {
   showToast("Filtros aplicados.");
 });
 
+if (btnExportCSV) {
+  btnExportCSV.addEventListener("click", async () => {
+    const rows = await fetchDespesas(); // exporta o filtro atual
+    const file = `despesas_${MES}.csv`;
+    downloadCSV(file, rows);
+    showToast("CSV gerado.");
+  });
+}
+
+if (btnPrint) {
+  btnPrint.addEventListener("click", () => {
+    window.print();
+  });
+}
+
+
 btnLimparFiltros.addEventListener("click", async () => {
   fDe.value = "";
   fAte.value = "";
