@@ -25,19 +25,19 @@ body{
 }
 
 .bg{
-  position:fixed; inset:0;
-  background:
-    radial-gradient(900px 500px at 10% 10%, rgba(120,170,255,0.20), transparent 60%),
-    radial-gradient(700px 450px at 90% 15%, rgba(255,120,200,0.14), transparent 60%),
-    radial-gradient(800px 600px at 50% 100%, rgba(120,255,170,0.12), transparent 65%),
-    linear-gradient(180deg, rgba(10,14,28,1), rgba(10,14,28,0.70));
+  position: fixed;
+  inset: 0;
 
-  /* SVG estilo anime + lobo (original, sem copyright) */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' viewBox='0 0 1400 900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='20%25'%3E%3Cstop offset='0%25' stop-color='%2378aaff' stop-opacity='0.55'/%3E%3Cstop offset='60%25' stop-color='%230b1020' stop-opacity='0'/%3E%3C/radialGradient%3E%3ClinearGradient id='s' x1='0' x2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.08'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='0.02'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1400' height='900' fill='%230b1020'/%3E%3Crect width='1400' height='900' fill='url(%23g)'/%3E%3Cg opacity='0.9'%3E%3Cpath d='M1060 220c-40-65-120-110-210-110-120 0-220 80-250 190-12 45-7 90 10 130-35 25-75 70-100 140-30 85 5 155 55 210 55 60 145 95 245 95 130 0 245-60 300-150 60-95 45-210-40-290 18-85 5-155-10-215z' fill='url(%23s)'/%3E%3Cpath d='M905 250l45-70 25 90 60 20-55 40 10 70-60-35-65 35 15-75-55-35 80-40z' fill='%23ffffff' opacity='0.08'/%3E%3Cpath d='M760 560c65 55 150 55 210 10 45-35 70-95 55-150-18-70-90-115-165-105-60 8-105 45-125 95-18 45-5 110 25 150z' fill='%23ffffff' opacity='0.06'/%3E%3Cpath d='M840 320c35-60 95-95 165-95 55 0 100 20 135 55-35-10-80-5-120 15-45 22-75 55-90 95-5 15-8 30-8 45-10-35-5-75 18-115z' fill='%23ffffff' opacity='0.05'/%3E%3C/g%3E%3Cg opacity='0.22'%3E%3Ccircle cx='220' cy='650' r='3' fill='%23fff'/%3E%3Ccircle cx='320' cy='690' r='2' fill='%23fff'/%3E%3Ccircle cx='410' cy='620' r='2' fill='%23fff'/%3E%3Ccircle cx='520' cy='720' r='3' fill='%23fff'/%3E%3Ccircle cx='650' cy='640' r='2' fill='%23fff'/%3E%3Ccircle cx='980' cy='740' r='2' fill='%23fff'/%3E%3Ccircle cx='1120' cy='700' r='3' fill='%23fff'/%3E%3Ccircle cx='1240' cy='760' r='2' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("./pages/bg.jpg");
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
   filter: saturate(1.05) contrast(1.05);
   transform: scale(1.02);
+}
+
 }
 
 .overlay{
