@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Joãozinho Fin — Controle Simples</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+  <div class="bg"></div>
+  <div class="overlay"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🐺</div>
+      <div>
+        <h1>Joãozinho Fin</h1>
+        <p>Controle simples de salário + extras + despesas</p>
+      </div>
+    </div>
+
+    <div class="monthbar">
+      <label for="mesRef">Mês:</label>
+      <input id="mesRef" type="month" />
+      <button id="btnCarregar" class="btn">Carregar</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid">
+      <!-- CARD: Config do mês -->
+      <div class="card">
+        <div class="card-title">
+          <h2>Entradas do mês</h2>
+          <span class="chip">salário + extra</span>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Salário (R$)</label>
+            <input id="salario" type="number" step="0.01" placeholder="ex: 2500,00" />
+          </div>
+          <div class="field">
+            <label>Ganhos extra (barbearia) (R$)</label>
+            <input id="extra" type="number" step="0.01" placeholder="ex: 300,00" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="btnSalvarEntradas" class="btn primary">Salvar entradas</button>
+          <button id="btnZerarEntradas" class="btn ghost">Zerar</button>
+        </div>
+
+        <hr class="sep" />
+
+        <div class="summary">
+          <div class="kpi">
+            <span>Entradas</span>
+            <strong id="kpiEntradas">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Despesas (filtradas)</span>
+            <strong id="kpiDespesas">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Saldo (entradas - despesas)</span>
+            <strong id="kpiSaldo">R$ 0,00</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD: Nova despesa -->
+      <div class="card">
+        <div class="card-title">
+          <h2>Nova despesa</h2>
+          <span class="chip warn">gastos do dia</span>
+        </div>
+
+        <input id="despId" type="hidden" />
+
+        <div class="form-row">
+          <div class="field">
+            <label>Data</label>
+            <input id="data" type="date" />
+          </div>
+          <div class="field">
+            <label>Categoria</label>
+            <input id="categoria" type="text" placeholder="ex: Mercado, Gasolina..." />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field full">
+            <label>Descrição</label>
+            <input id="descricao" type="text" placeholder="ex: pão, arroz, corte de cabelo..." />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Valor (R$)</label>
+            <input id="valor" type="number" step="0.01" placeholder="ex: 32,50" />
+          </div>
+          <div class="field">
+            <label>&nbsp;</label>
+            <button id="btnSalvarDespesa" class="btn primary">Salvar</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="btnCancelarEdicao" class="btn ghost hidden">Cancelar edição</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTROS + LISTA -->
+    <section class="card">
+      <div class="card-title">
+        <h2>Despesas</h2>
+        <span class="chip">filtros simples</span>
+      </div>
+
+      <div class="filters">
+        <div class="field">
+          <label>De</label>
+          <input id="fDe" type="date" />
+        </div>
+        <div class="field">
+          <label>Até</label>
+          <input id="fAte" type="date" />
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <input id="fCat" type="text" placeholder="ex: Mercado" />
+        </div>
+        <div class="field">
+          <label>Buscar</label>
+          <input id="fBusca" type="text" placeholder="descrição..." />
+        </div>
+        <div class="field">
+          <label>Min (R$)</label>
+          <input id="fMin" type="number" step="0.01" />
+        </div>
+        <div class="field">
+          <label>Max (R$)</label>
+          <input id="fMax" type="number" step="0.01" />
+        </div>
+
+        <button id="btnAplicarFiltros" class="btn">Aplicar</button>
+        <button id="btnLimparFiltros" class="btn ghost">Limpar</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Categoria</th>
+              <th>Descrição</th>
+              <th class="right">Valor</th>
+              <th class="right">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista"></tbody>
+        </table>
+      </div>
+
+      <div class="footer-note">
+        Dica: isso é pra ser simples mesmo. Lançou o gasto, filtrou, viu quanto gastou.
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
