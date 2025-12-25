@@ -1,8 +1,8 @@
 // ===============================
 // CONFIG SUPABASE preencha aqui
 // ===============================
-const SUPABASE_URL = "COLE_SUA_SUPABASE_URL_AQUI";
-const SUPABASE_ANON_KEY = "COLE_SUA_SUPABASE_ANON_KEY_AQUI";
+const SUPABASE_URL = "https://zdvlzgjzfobquuylkosw.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkdmx6Z2p6Zm9icXV1eWxrb3N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY2MTIwNzMsImV4cCI6MjA4MjE4ODA3M30.2N6OFFczJflCQcptPnja9lgOV_qk0xxNpaQBTNFjVDY";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ===============================
