@@ -104,13 +104,14 @@ body{
 
 
 .card{
-  background: var(--card);
-  border:1px solid var(--stroke);
+  background: rgba(15, 22, 38, 0.88); /* MAIS ESCURO */
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.45);
   padding:16px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
 }
+
 
 .card-title{
   display:flex;
