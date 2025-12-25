@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Joãozinho Fin — Controle Simples</title>
+  <title>Joãozinho Fin — Controle Financeiro</title>
+
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
-  
 <body>
+  <!-- BACKGROUND -->
   <div class="bg"></div>
   <div class="overlay"></div>
 
+  <!-- TOPO -->
   <header class="topbar">
     <div class="brand">
       <div class="logo">🐺</div>
@@ -29,94 +31,124 @@
     </div>
   </header>
 
+  <!-- CONTEÚDO -->
   <main class="container">
+
+    <!-- ENTRADAS + RELATÓRIO -->
     <section class="grid">
-      <!-- CARD: Config do mês -->
+
+      <!-- ENTRADAS -->
       <div class="card">
         <div class="card-title">
-          <h2>Entradas do mês</h2>
-          <span class="chip">salário + extra</span>
+          <h2>Entradas</h2>
+          <span class="chip">salário + extras</span>
         </div>
 
         <div class="form-row">
           <div class="field">
-            <label>Salário (R$)</label>
-            <input id="salario" type="number" step="0.01" placeholder="ex: 2500,00" />
+            <label>Data</label>
+            <input id="entData" type="date" />
           </div>
           <div class="field">
-            <label>Ganhos extra (barbearia) (R$)</label>
-            <input id="extra" type="number" step="0.01" placeholder="ex: 300,00" />
+            <label>Tipo</label>
+            <select id="entTipo" class="select">
+              <option value="salario">Salário</option>
+              <option value="extra">Extra</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field full">
+            <label>Descrição</label>
+            <input id="entDesc" type="text" placeholder="ex: Salário do mês / 3 cortes" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Valor (R$)</label>
+            <input id="entValor" type="number" step="0.01" placeholder="ex: 1500,00" />
+          </div>
+          <div class="field">
+            <label>&nbsp;</label>
+            <button id="btnSalvarEntrada" class="btn primary">Salvar entrada</button>
           </div>
         </div>
 
         <div class="actions">
-          <button id="btnSalvarEntradas" class="btn primary">Salvar entradas</button>
-          <button id="btnZerarEntradas" class="btn ghost">Zerar</button>
+          <button id="btnCancelarEdicaoEntrada" class="btn ghost hidden">
+            Cancelar edição
+          </button>
         </div>
 
         <hr class="sep" />
 
-        <div class="summary">
-          <div class="kpi">
-            <span>Entradas</span>
-            <strong id="kpiEntradas">R$ 0,00</strong>
-          </div>
-          <div class="kpi">
-            <span>Despesas (filtradas)</span>
-            <strong id="kpiDespesas">R$ 0,00</strong>
-          </div>
-          <div class="kpi">
-            <span>Saldo (entradas - despesas)</span>
-            <strong id="kpiSaldo">R$ 0,00</strong>
-          </div>
+        <h3 class="sub">Entradas do mês</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+                <th class="right">Valor</th>
+                <th class="right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="listaEntradas"></tbody>
+          </table>
         </div>
       </div>
 
-<!-- RELATÓRIO -->
-<section class="card">
-  <div class="card-title">
-    <h2>Relatório</h2>
-    <span class="chip">resumo + categorias</span>
-  </div>
+      <!-- RELATÓRIO -->
+      <div class="card">
+        <div class="card-title">
+          <h2>Relatório</h2>
+          <span class="chip">resumo + categorias</span>
+        </div>
 
-  <div class="report-grid">
-    <div class="kpi">
-      <span>Total do mês (Entradas)</span>
-      <strong id="repEntradas">R$ 0,00</strong>
-    </div>
-    <div class="kpi">
-      <span>Total do mês (Despesas)</span>
-      <strong id="repDespesas">R$ 0,00</strong>
-    </div>
-    <div class="kpi">
-      <span>Saldo do mês</span>
-      <strong id="repSaldo">R$ 0,00</strong>
-    </div>
-  </div>
+        <div class="report-grid">
+          <div class="kpi">
+            <span>Total do mês (Entradas)</span>
+            <strong id="repEntradas">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Total do mês (Despesas)</span>
+            <strong id="repDespesas">R$ 0,00</strong>
+          </div>
+          <div class="kpi">
+            <span>Saldo do mês</span>
+            <strong id="repSaldo">R$ 0,00</strong>
+          </div>
+        </div>
 
-  <div class="actions" style="margin-top:12px;">
-    <button id="btnExportCSV" class="btn">Exportar CSV (filtro atual)</button>
-    <button id="btnPrint" class="btn ghost">Imprimir / Salvar PDF</button>
-  </div>
+        <div class="actions" style="margin-top:12px;">
+          <button id="btnExportCSV" class="btn">Exportar CSV</button>
+          <button id="btnPrint" class="btn ghost">Imprimir / Salvar PDF</button>
+        </div>
 
-  <hr class="sep" />
+        <hr class="sep" />
 
-  <h3 class="sub">Gastos por categoria (filtro atual)</h3>
-  <div class="table-wrap">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Categoria</th>
-          <th class="right">Total</th>
-        </tr>
-      </thead>
-      <tbody id="repCats"></tbody>
-    </table>
-  </div>
-</section>
+        <h3 class="sub">Gastos por categoria</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Categoria</th>
+                <th class="right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="repCats"></tbody>
+          </table>
+        </div>
+      </div>
 
-      
-      <!-- CARD: Nova despesa -->
+    </section>
+
+    <!-- NOVA DESPESA -->
+    <section class="grid">
+
       <div class="card">
         <div class="card-title">
           <h2>Nova despesa</h2>
@@ -132,21 +164,21 @@
           </div>
           <div class="field">
             <label>Categoria</label>
-            <input id="categoria" type="text" placeholder="ex: Mercado, Gasolina..." />
+            <input id="categoria" type="text" placeholder="ex: Mercado" />
           </div>
         </div>
 
         <div class="form-row">
           <div class="field full">
             <label>Descrição</label>
-            <input id="descricao" type="text" placeholder="ex: pão, arroz, corte de cabelo..." />
+            <input id="descricao" type="text" placeholder="ex: arroz, pão, gasolina" />
           </div>
         </div>
 
         <div class="form-row">
           <div class="field">
             <label>Valor (R$)</label>
-            <input id="valor" type="number" step="0.01" placeholder="ex: 32,50" />
+            <input id="valor" type="number" step="0.01" />
           </div>
           <div class="field">
             <label>&nbsp;</label>
@@ -158,9 +190,10 @@
           <button id="btnCancelarEdicao" class="btn ghost hidden">Cancelar edição</button>
         </div>
       </div>
+
     </section>
 
-    <!-- FILTROS + LISTA -->
+    <!-- DESPESAS -->
     <section class="card">
       <div class="card-title">
         <h2>Despesas</h2>
@@ -178,11 +211,11 @@
         </div>
         <div class="field">
           <label>Categoria</label>
-          <input id="fCat" type="text" placeholder="ex: Mercado" />
+          <input id="fCat" type="text" />
         </div>
         <div class="field">
           <label>Buscar</label>
-          <input id="fBusca" type="text" placeholder="descrição..." />
+          <input id="fBusca" type="text" />
         </div>
         <div class="field">
           <label>Min (R$)</label>
@@ -211,15 +244,14 @@
           <tbody id="lista"></tbody>
         </table>
       </div>
-
-      <div class="footer-note">
-        Dica: isso é pra ser simples mesmo. Lançou o gasto, filtrou, viu quanto gastou.
-      </div>
     </section>
+
   </main>
 
+  <!-- TOAST -->
   <div id="toast" class="toast hidden"></div>
 
+  <!-- SCRIPT -->
   <script src="app.js"></script>
 </body>
 </html>
